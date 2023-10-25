@@ -4,6 +4,7 @@
       <label for="name">Tên</label>
       <Field
         name="name"
+        id="name"
         type="text"
         class="form-control"
         v-model="contactLocal.name"
@@ -14,6 +15,7 @@
       <label for="email">E-mail</label>
       <Field
         name="email"
+        id="email"
         type="email"
         class="form-control"
         v-model="contactLocal.email"
@@ -24,6 +26,7 @@
       <label for="address">Địa chỉ</label>
       <Field
         name="address"
+        id="address"
         type="text"
         class="form-control"
         v-model="contactLocal.address"
@@ -34,6 +37,7 @@
       <label for="phone">Điện thoại</label>
       <Field
         name="phone"
+        id="phone"
         type="tel"
         class="form-control"
         v-model="contactLocal.phone"
@@ -43,6 +47,7 @@
     <div class="form-group form-check">
       <input
         name="favorite"
+        id="favorite"
         type="checkbox"
         class="form-check-input"
         v-model="contactLocal.favorite"
@@ -52,7 +57,8 @@
       </label>
     </div>
     <div class="form-group">
-      <button class="btn btn-primary">Lưu</button>
+      <button v-if="contactLocal._id" class="btn btn-primary">Lưu</button>
+      <button v-else class="btn btn-primary">Thêm</button>
       <button
         v-if="contactLocal._id"
         type="button"
@@ -75,7 +81,10 @@ export default {
   },
   emits: ['submit:contact', 'delete:contact'],
   props: {
-    contact: { type: Object, required: true },
+    contact: {
+      type: Object,
+      default: {},
+    },
   },
   data() {
     const contactFormSchema = yup.object().shape({
